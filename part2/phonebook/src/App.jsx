@@ -121,7 +121,6 @@ const App = () => {
           />
         ))}
       </div>
-      <button onClick={() => setSuccessText("We Major")}>We Major</button>
     </div>
   );
 };
