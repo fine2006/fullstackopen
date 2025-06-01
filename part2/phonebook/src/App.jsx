@@ -43,9 +43,15 @@ const App = () => {
       };
       contacts
         .create(newObject)
-        .then((result) => setPersons(persons.concat(result)));
-      setSuccessText(`User ${newName} successfully added`);
-      setTimeout(() => setSuccessText(null), 5000);
+        .then((result) => {
+          setPersons(persons.concat(result));
+          setSuccessText(`User ${newName} successfully added`);
+          setTimeout(() => setSuccessText(null), 5000);
+        })
+        .catch((error) => {
+          setFailureText(error.response.data.error);
+          setTimeout(() => setFailureText(null), 5000);
+        });
     } else {
       if (
         window.confirm(
@@ -88,6 +94,10 @@ const App = () => {
     if (window.confirm(`Delete ${id}?`)) {
       contacts
         .deleteObject(id)
+        .then((result) => {
+          setSuccessText(`User ${id} has been successfully removed`);
+          setTimeout(() => setSuccessText(null), 5000);
+        })
         .catch((error) => {
           setFailureText(`User ${id} has been already removed`);
           setTimeout(() => setFailureText(null), 5000);
